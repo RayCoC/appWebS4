@@ -1,0 +1,27 @@
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    justify-content: space-between;
+    background: #08C9DF;
+    font-family: 'roboto';
+    font-size: 25px;
+    font-weight: bold;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.list {
+    display: flex;
+}
+.nav_links {
+    text-align: center;
+    padding: 10px;
+    float: right;
+}
