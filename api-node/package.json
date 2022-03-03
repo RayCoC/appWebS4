@@ -1,0 +1,27 @@
+{
+  "name": "api-node",
+  "version": "1.0.0",
+  "description": "Server HTTP pour API REST",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RayCoC/appWebS4.git"
+  },
+  "author": "HAMOUCHE Rayan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RayCoC/appWebS4/issues"
+  },
+  "homepage": "https://github.com/RayCoC/appWebS4#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1"
+  }
+}
