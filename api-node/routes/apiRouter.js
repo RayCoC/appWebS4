@@ -29,4 +29,5 @@ apiRouter.get('/userInformations', function (req,res,next) {
    console.log(req.session);
 });
 apiRouter.post("/addItem", upload.single('file'),token,itemController.addItem);
+apiRouter.post("/items/:id", token, itemController.itemsOfAnUser);
 module.exports = apiRouter;

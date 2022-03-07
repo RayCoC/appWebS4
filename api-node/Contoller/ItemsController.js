@@ -1,6 +1,5 @@
 require("dotenv").config();
 var conn = require("../config/database");
-const is = require('@sindresorhus/is');
     exports.addItem = (req, res, next) => {
             var name = req.body.name;
             var price = req.body.price;
@@ -28,5 +27,12 @@ const is = require('@sindresorhus/is');
             });
     }
     exports.itemsOfAnUser = (req,res,next) => {
-
+        conn.query("SELECT * from objet where idUtilisateur = ?", [req.session.userID], (err, resultat) => {
+            if (resultat.length > 0) {
+                return res.status(200).json({"userID" : req.params.id, "data" : resultat});
+            }
+            else {
+                throw err;
+            }
+        });
     }
