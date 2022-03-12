@@ -27,7 +27,7 @@ var conn = require("../config/database");
             });
     }
     exports.itemsOfAnUser = (req,res,next) => {
-        conn.query("SELECT * from objet where idUtilisateur = ?", [req.session.userID], (err, resultat) => {
+        conn.query("SELECT * from objet where idUtilisateur = ?", [req.params.id], (err, resultat) => {
             if (resultat.length > 0) {
                 return res.status(200).json({"userID" : req.params.id, "data" : resultat});
             }
@@ -35,4 +35,30 @@ var conn = require("../config/database");
                 throw err;
             }
         });
+    }
+    exports.createCollection = (req,res, next) => {
+        var collectionName = req.body.Name;
+        if (collectionName == null) {
+            return res.status(400).json({"message": "La collection doit avoir un nom !"});
+        }
+        conn.query("SELECT * from collection where titreCollection = ? and idUtilisateur = ?", [req.body.Name, req.session.userID], (err, result) => {
+            if (result.length > 0) {
+                return res.status(400).json({"message": "Vous avez déjà crée une collection avec ce nom"});
+            } else {
+                conn.query(`insert into collection (titreCollection)
+                            values ("${req.session.userID}";`, (err, resultat) => {
+                    return res.status(200).json({"message": "Collection crée"});
+                });
+            }
+        });
+    }
+    exports.addItemToCollection = (req,res,next) => {
+        if (req.params.itemID == null) {
+            throw new error("Error");
+        }
+        else {
+            conn.query(`insert into collection (titreCollection) values ("${req.session.userID}";`, (err, resultat) => {
+                return res.status(200).json({"message" : "Objet ajouté à la collection"});
+            });
+        }
     }

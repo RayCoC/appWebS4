@@ -4,6 +4,9 @@ var serv = express();
 var bodyParser = require('body-parser');
 var conn = require("./config/database");
 var session = require('express-session');
+var cors = require('cors');
+
+serv.use(cors());
 serv.use(express.urlencoded({extended: true}));
 serv.use(express.json());
 
