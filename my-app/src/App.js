@@ -3,7 +3,9 @@ import Footer from "./footer/Footer";
 import { Routes, Route, Redirect } from 'react-router-dom';
 import Connexion from './authentification/connexion';
 import Inscription from './authentification/inscription';
+import ObjetPage from './ObjetPage/objetPage';
 import Vendre from './Vendre/vendre';
+import ListeVente from './listeVenteAchat/listeVente';
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
         <Routes>
             <Route exact path="/connexion" element = {<Connexion />} />
             <Route exact path="/inscription" element = {<Inscription />} />
-            <Route exact path="/Vendre" element = {<Vendre />} />
+            <Route exact path="/Objet" element = {<ObjetPage />} />
+            <Route exact path={"/vendre"} element = {<Vendre />} />
+            <Route exact path={'/historique/vente'} element = {<ListeVente />} />
         </Routes>
         <Footer />
     </div>

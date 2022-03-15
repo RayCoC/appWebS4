@@ -9,14 +9,20 @@ var cors = require('cors');
 serv.use(cors());
 serv.use(express.urlencoded({extended: true}));
 serv.use(express.json());
-
 serv.use(
     session({
         secret: process.env.SESSION_SECRET, // don't put this into your code at production.  Try using saving it into environment variable or a config file.
         resave : false,
         saveUninitialized : false,
-    })
+    }),
 );
+serv.use(function(req,res,next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
 // Les différentes routes possibles
 serv.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');

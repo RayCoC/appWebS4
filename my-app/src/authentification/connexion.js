@@ -5,11 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 function Connexion () {
-    /*constructor(props) {
-        super(props);
-        this.state = {login : "",token : "", logged : false, message : "", compteur : 0};
-    }
-*/
+
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -20,13 +16,9 @@ function Connexion () {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let data = {};
-        data.login = login;
-        data.password = password;
-
         axios.post('http://localhost:8081/api/connexion', {
             login : login,
-            password :""
+            password : password
             }
         ).then(res => {
             if (! res.data.user) {
@@ -35,8 +27,8 @@ function Connexion () {
                 setMessage(res.data.message);
             }
             else {
-                localStorage.setItem("token", "Bearer" + res.data.token);
-                localStorage.setItem("user", res.data.user.login);
+                window.sessionStorage.setItem("token", "Bearer " + res.data.token);
+                window.sessionStorage.setItem("userID", res.data.user.idUtilisateur);
                 navigate("/inscription");
             }
         })

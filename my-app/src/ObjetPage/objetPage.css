@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+}
+p {
+    text-align: center;
+}
+.choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin: 10px;
+}
