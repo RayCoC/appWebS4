@@ -9,7 +9,7 @@ var conn = require("../config/database");
         var nom = req.body.nom;
         var password = req.body.password;
 
-        if (login == null || nom == null || password==null) {
+        if (login == null || nom == null || password==null || login=="" || nom == "" || password=="") {
             return res.json({'messsage': 'Certains champs sont vides'});
         } else if (password.length < 3) {
             return res.json({"message": 'votre mot de passe est trop court !'});
@@ -25,9 +25,9 @@ var conn = require("../config/database");
                         conn.query(`insert into utilisateur (nomUtilisateur,login,password) values ("${nom}","${login}","${hash}");`, (err, result) => {
                             if (err) {
                                 throw err;
-                                return res.status(500).json({"message": err});
+                                return res.json({"message": err});
                             }
-                            return res.status(200).json({"message" : "Inscription effectué !"});
+                            return res.status(200).json({"message" : "Inscription effectué !", "insc" : true});
                         });
                     }
                 });

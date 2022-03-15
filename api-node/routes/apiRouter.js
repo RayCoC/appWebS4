@@ -29,7 +29,7 @@ apiRouter.get('/userInformations', function (req,res,next) {
    console.log(req.session);
 });
 apiRouter.post("/addItem", upload.single('file'),token,itemController.addItem);
-apiRouter.get("/items/:id", /*token,*/ itemController.itemsOfAnUser);
+apiRouter.get("/items/:id", token, itemController.itemsOfAnUser);
 apiRouter.post("/createCollection", itemController.createCollection);
 apiRouter.post("/addItemToCollection/:itemID", itemController.addItemToCollection);
 module.exports = apiRouter;
