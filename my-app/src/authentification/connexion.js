@@ -29,7 +29,7 @@ function Connexion () {
             else {
                 window.sessionStorage.setItem("token", "Bearer " + res.data.token);
                 window.sessionStorage.setItem("userID", res.data.user.idUtilisateur);
-                navigate("/inscription");
+                navigate("/Accueil");
             }
         })
     }

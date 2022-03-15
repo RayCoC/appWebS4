@@ -18,7 +18,6 @@ function Vendre() {
     const handleSubmit = e => {
             e.preventDefault()
             fileUpload(img).then((response)=>{
-                console.log(response.data.message);
                 if (response.data.message == "objet ajouté") {
                     setStatut(true);
                 }

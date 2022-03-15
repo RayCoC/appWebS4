@@ -9,6 +9,7 @@ var cors = require('cors');
 serv.use(cors());
 serv.use(express.urlencoded({extended: true}));
 serv.use(express.json());
+serv.use('/images', express.static(__dirname + '/upload/images'));
 serv.use(
     session({
         secret: process.env.SESSION_SECRET, // don't put this into your code at production.  Try using saving it into environment variable or a config file.
