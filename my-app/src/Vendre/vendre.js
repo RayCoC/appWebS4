@@ -9,7 +9,6 @@ function Vendre() {
     const [nom, setNom] = useState("");
     const [price, setPrice] = useState(0);
     const [desc, setDesc] = useState("");
-    const [stock, setStock] = useState(1);
     const [type, setType] = useState("");
     const [img, setImg] = useState(null);
     const [compteur, setCompteur] = useState(0);
@@ -28,13 +27,13 @@ function Vendre() {
                 setCompteur(compteur+1);})
     }
     const fileUpload = file => {
-        const url = 'http://localhost:8081/api/addItem';
+        const url = 'http://localhost:8081/api/addItem/'+window.sessionStorage.getItem("userID");
         const formData = new FormData();
         formData.append('file',file)
         formData.append('name', nom)
         formData.append('price', price)
         formData.append('desc', desc)
-        formData.append('stock', stock)
+        formData.append('desc', desc)
         formData.append('token', window.sessionStorage.getItem("token"))
         formData.append('type', type);
         const config = {
@@ -70,12 +69,8 @@ function Vendre() {
                         <input type="text" name="desc" className="form-control" placeholder="Entrer la description" onChange={(e) => setDesc(e.target.value)}/>
                     </div>
                     <div className="form-group">
-                        <label required="required">Stock</label>
-                        <input type="text" name="stock" className="form-control" placeholder="Entrer le stock" onChange={(e) => setStock(e.target.value)}/>
-                    </div>
-                    <div className="form-group">
                         <label required="required">Type d'objet</label>
-                        <input type="text" name="stock" className="form-control" placeholder="Type d'objet" onChange={(e) => setType(e.target.value)}/>
+                        <input type="text" name="type" className="form-control" placeholder="Type d'objet" onChange={(e) => setType(e.target.value)}/>
                     </div>
                     <div className="form-group mt-3">
                         <label className="mr-2">Upload your CV:</label><br />

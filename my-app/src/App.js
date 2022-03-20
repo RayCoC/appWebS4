@@ -5,8 +5,11 @@ import Connexion from './authentification/connexion';
 import Inscription from './authentification/inscription';
 import ObjetPage from './ObjetPage/objetPage';
 import Vendre from './Vendre/vendre';
-import ListeVente from './listeVenteAchat/listeVente';
+import ListeVente from './historique/vente/listeVente';
 import PrivateRoute from './privateRoute';
+import ListOfItems from './Acheter/listOfItems';
+import Historique from './historique/historique';
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +20,8 @@ function App() {
             <Route exact path="/Objet" element = {<ObjetPage />} />
             <Route exact path={"/vendre"} element = {<Vendre />} />
             <Route exact path='/historique/vente' element={<PrivateRoute component={ListeVente}/>}/>
+            <Route exact path='/listOfItems' element={<PrivateRoute component={ListOfItems}/>}/>
+            <Route exact path='/historique' element={<PrivateRoute component={Historique}/>}/>
         </Routes>
         <Footer />
     </div>

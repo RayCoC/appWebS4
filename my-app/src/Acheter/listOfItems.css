@@ -1,0 +1,42 @@
+img {
+    height: 200px;
+}
+.card{
+    padding-top: 10px;
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+}
+.bi{
+    text-align: right;
+    padding-right: 10px;
+    font-size: 26px;
+    cursor: pointer;
+}
+h5{
+    padding-top: 15px;
+}
+.btn{
+    padding: 5px 25px;
+    margin-top: 10px;
+}
+#error {
+    width: 1000px !important;
+    text-align: center !important;
+    margin-left: 150px !important;
+}
+@media(max-width: 768px){
+    img{
+        height: 100%;
+    }
+    #error {
+        margin-left: 0px !important;
+    }
+}
+@media(max-width: 575px){
+    .container{
+        width: 90%;
+    }
+    #error {
+        margin-left: 0px !important;
+    }
+}

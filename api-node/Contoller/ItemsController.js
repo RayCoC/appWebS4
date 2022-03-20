@@ -5,11 +5,10 @@ var conn = require("../config/database");
             var price = req.body.price;
             var desc = req.body.desc;
             var image = req?.file?.filename;
-            var stock = req.body.stock;
             var type = req.body.type;
             var collectionId = req.body.collectionId;
 
-            if (name == "" || price == "" || image == "" || desc == "" || stock == "" || type == "") {
+            if (name == "" || price == "" || image == "" || desc == "" || type == "") {
                 return res.json({"message" : "Un champ est manquant"});
             }
             else if (! /^-?\d+$/.test(price)) {
@@ -20,19 +19,24 @@ var conn = require("../config/database");
                     return res.json({"message" : "Vous savez déjà publié cet article en ligne"});
                 }
                 else {
-                    conn.query(`insert into objet (idUtilisateur,nomObjet,prix,image, description,stock, typeObjet,idCollection) values ("${req.session.userID}","${name}","${price}","${image}","${desc}","${stock}","${type}","${collectionId}");`, (err, result) => {
-                        return res.status(200).json({"message" : "objet ajouté !"});
+                    conn.query(`insert into objet (idUtilisateur,nomObjet,prix,image, description,typeObjet,idCollection) values ("${req.params.id}","${name}","${price}","${image}","${desc}","${type}","${collectionId}");`, (err, result) => {
+                        if (err) {
+                            throw err;
+                        }
+                        else {
+                            return res.status(200).json({"message" : "objet ajouté !"});
+                        }
                     });
                 }
             });
     }
     exports.itemsOfAnUser = (req,res,next) => {
         conn.query("SELECT * from objet where idUtilisateur = ?", [req.params.id], (err, resultat) => {
-            if (resultat.length > 0) {
-                return res.status(200).json({"userID" : req.params.id, "info" : resultat});
-            }
-            else {
+            if (err) {
                 throw err;
+            }
+            else if (resultat.length > 0) {
+                return res.status(200).json({"userID" : req.params.id, "info" : resultat});
             }
         });
     }
@@ -59,6 +63,25 @@ var conn = require("../config/database");
         else {
             conn.query(`insert into collection (titreCollection) values ("${req.session.userID}";`, (err, resultat) => {
                 return res.status(200).json({"message" : "Objet ajouté à la collection"});
+            });
+        }
+    }
+    exports.deleteItem = (req, res, next) => {
+        if (req.params.itemID == null) {
+            return res.json({"message" : "Aucun objet n'a été choisi"});
+        }
+        else {
+            conn.query("SELECT * from objet where idObjet  = ?", [req.params.itemID], (err, result)=> {
+                if (result.length > 0) {
+                    if (result[0].status == null) {
+                        conn.query("DELETE from objet where idObjet = ?", [req.params.itemID], (err, result) => {
+                            return res.json({"message" : "objet supprimé des ventes"});
+                        });
+                    }
+                }
+                else {
+                    return  res.json({"message" : "le produit n'existe pas"});
+                }
             });
         }
     }
