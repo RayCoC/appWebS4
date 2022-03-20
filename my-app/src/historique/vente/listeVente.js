@@ -7,13 +7,16 @@ function ListeVente() {
 
     const [products, setProducts] = useState([]);
     axios.defaults.headers.common['authorization'] = window.sessionStorage.getItem("token");
-    const url = "http://localhost:8081/api/Items/"+window.sessionStorage.getItem("userID");
+    const urlDisplay = "http://localhost:8081/api/Items/"+window.sessionStorage.getItem("userID");
 
+    const deleteProduct = (id) => {
+        axios.post("http://localhost:8081/api/deleteItem/"+id).then(res => {
+            console.log('ok');
+        })
+    }
     const fetchProducts = async () => {
-        await axios.get(url).then(res => {
-            console.log(res.data);
+        await axios.get(urlDisplay).then(res => {
             setProducts(res.data.info);
-            console.log(products);
         });
     };
 
@@ -23,9 +26,12 @@ function ListeVente() {
 
     return (
         <div className="container">
+            <br />
+            <h1>Historique des ventes</h1>
+            <br/>
             <div className="row bootstrap snippets bootdeys" id="store-list">
                 {products && products.map((product) => {
-                    return <div className="col-md-6 col-xs-12">
+                    return <div className="col-md-6 col-xs-12" key={product.idObjet}>
                         <div className="panel">
                             <div className="panel-body">
                                 <div className="row">
@@ -38,7 +44,10 @@ function ListeVente() {
                                         </h4>
                                         <hr />
                                         <p>{product.description}</p>
-                                        <p className="btn btn-default">{product.prix}$</p>
+                                        <button type="button" className="btn btn-primary">{product.prix}$</button>
+                                        {product.status == null ? (
+                                                <div></div>) :
+                                            (<button type="button" className="btn btn-secondary">Vendu</button>)}
                                     </div>
                                 </div>
                             </div>

@@ -28,8 +28,43 @@ apiRouter.post('/logout', userController.logout);
 apiRouter.get('/userInformations', function (req,res,next) {
    console.log(req.session);
 });
-apiRouter.post("/addItem", upload.single('file'),token,itemController.addItem);
+apiRouter.post("/addItem/:id", upload.single('file'),token,itemController.addItem);
 apiRouter.get("/items/:id", token, itemController.itemsOfAnUser);
 apiRouter.post("/createCollection", itemController.createCollection);
 apiRouter.post("/addItemToCollection/:itemID", itemController.addItemToCollection);
+apiRouter.post("/deleteItem/:itemID", itemController.deleteItem);
+apiRouter.get("/search/:title/:filter", function (req,res, next) {
+   var title = req.params.title;
+   var filter = req.params.filter;
+   if (title == "" || title == null || filter == "" || filter == null || title == "noSearch") {
+      conn.query('SELECT * from objet', (err, result) => {
+         if (err) {
+            throw err;
+         }
+         return res.json({"all" : result});
+      });
+   }
+   else if (filter == "nomObjet") {
+      conn.query("SELECT * from objet where nomObjet like ?", '%'+title+'%', (err, result) => {
+         if (err) {
+            throw err;
+         }
+         if (result.length >0) {
+            return res.json({"all" : result});
+         }
+         return res.json({"message" : "not found"});
+      });
+   }
+   else if (filter=="typeObjet") {
+      conn.query("SELECT * from objet where typeObjet like ?", '%'+title+'%', (err, result) => {
+         if (err) {
+            throw err;
+         }
+         if (result.length >0) {
+            return res.json({"all" : result});
+         }
+         return res.json({"message" : "not found"});
+      });
+   }
+});
 module.exports = apiRouter;
