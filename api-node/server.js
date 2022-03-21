@@ -12,7 +12,7 @@ serv.use(express.json());
 serv.use('/images', express.static(__dirname + '/upload/images'));
 serv.use(
     session({
-        secret: process.env.SESSION_SECRET, // don't put this into your code at production.  Try using saving it into environment variable or a config file.
+        secret: process.env.SESSION_SECRET,
         resave : false,
         saveUninitialized : false,
     }),
