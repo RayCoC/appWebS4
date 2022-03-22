@@ -14,8 +14,12 @@ const Header = () => {
                     <Nav.Link className="link" href="/Accueil">Accueil</Nav.Link>
                     <Nav.Link className="link" href="/Objet">Objets</Nav.Link>
                     <Nav.Link className="link" href="/Estimer">Estimer</Nav.Link>
-                    <Nav.Link className="link" href="/Account">Mon compte</Nav.Link>
-                    <Nav.Link className="link" href="/historique">Historique</Nav.Link>
+                    {window.sessionStorage.hasOwnProperty("userID") ? (
+                        <>
+                            <Nav.Link className="link" href="/historique">Historique</Nav.Link>
+                            <Nav.Link className="link" href="/panier">Panier</Nav.Link>
+                        </>)
+                        :<Nav.Link className="link" href="/Account">Connexion/inscription</Nav.Link>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

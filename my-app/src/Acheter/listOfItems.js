@@ -6,21 +6,8 @@ function ListOfItems() {
     const [searchItem, setSearchItem] = useState("");
     const [filter, setFilter] = useState("nomObjet");
 
-
-    /*let cpt = 1;
-    let filter = "typeObjet";*/
     const [products, setProducts] = useState([]);
 
-    /*const filterSearch = () => {
-        cpt+=1;
-        if (cpt%2==0) {
-            filter = "nomObjet";
-        }
-        else {
-            filter = "typeObjet";
-        }
-        console.log(filter);
-    }*/
     const searchHandler = async () => {
         var search = searchItem == "" ? "noSearch" : searchItem
         await axios.get("http://localhost:8081/api/search/"+search+"/"+filter).then(response=> {
@@ -31,6 +18,16 @@ function ListOfItems() {
                 setProducts([]);
             }
         });
+    }
+    
+    function addProductToCart(id) {
+        const index = products.findIndex(product => product.idObjet == id);
+
+        if (index == -1) {
+            return;
+        }
+
+        localStorage.setItem("products",JSON.stringify(products[index]));
     }
 
     useEffect(() => {
@@ -75,7 +72,7 @@ function ListOfItems() {
                                 <div className="card-body text-center">
                                     <h5 className="card-title">{product.description}</h5>
                                     <h4 className="card-text text-danger">{product.prix}$</h4>
-                                    <button type="button" className="btn btn-outline-primary">Add to cart</button>
+                                    <button type="button" onClick={addProductToCart(product.idObjet)} className="btn btn-outline-primary">Add to cart</button>
                                 </div>
                             </div>
                         </div>

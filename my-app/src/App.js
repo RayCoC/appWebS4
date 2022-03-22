@@ -9,8 +9,9 @@ import ListeVente from './historique/vente/listeVente';
 import PrivateRoute from './privateRoute';
 import ListOfItems from './Acheter/listOfItems';
 import Historique from './historique/historique';
-
+import Panier from './Panier/panier';
 function App() {
+
   return (
     <div className="App">
         <Header />
@@ -22,6 +23,7 @@ function App() {
             <Route exact path='/historique/vente' element={<PrivateRoute component={ListeVente}/>}/>
             <Route exact path='/listOfItems' element={<PrivateRoute component={ListOfItems}/>}/>
             <Route exact path='/historique' element={<PrivateRoute component={Historique}/>}/>
+            <Route exact path='/panier' element={<PrivateRoute component={Panier}/>}/>
         </Routes>
         <Footer />
     </div>
