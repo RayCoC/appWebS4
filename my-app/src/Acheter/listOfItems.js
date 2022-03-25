@@ -21,13 +21,15 @@ function ListOfItems() {
     }
     
     function addProductToCart(id) {
+        var items = JSON.parse(localStorage.getItem("products")) || [];
         const index = products.findIndex(product => product.idObjet == id);
 
         if (index == -1) {
             return;
         }
-
-        localStorage.setItem("products",JSON.stringify(products[index]));
+        localStorage.setItem("product",JSON.stringify(products[index]));
+        items.push(products[index]);
+        localStorage.setItem("products", JSON.stringify(items));
     }
 
     useEffect(() => {
@@ -72,7 +74,7 @@ function ListOfItems() {
                                 <div className="card-body text-center">
                                     <h5 className="card-title">{product.description}</h5>
                                     <h4 className="card-text text-danger">{product.prix}$</h4>
-                                    <button type="button" onClick={addProductToCart(product.idObjet)} className="btn btn-outline-primary">Add to cart</button>
+                                    <button type="button" onClick={() => addProductToCart(product.idObjet)} className="btn btn-outline-primary">Add to cart</button>
                                 </div>
                             </div>
                         </div>
