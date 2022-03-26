@@ -21,7 +21,7 @@ function ObjetPage() {
             <div className="jumbotron">
                 <br/>
                 <h1 className="">Gestion de collection d'objets</h1>
-                <p className="lead">Vous pouvez gérer ou achter des collections d'objets simplemeent sur notre site iRayBuy en vendant vos objets ou en achetant des objets d'autres utilisateurs !</p>
+                <p className="lead">Vous pouvez gérer ou acheter des collections d'objets simplemeent sur notre site iRayBuy en vendant vos objets ou en achetant des objets d'autres utilisateurs !</p>
                 <br/>
                 <div className = "choice">
                     <a className="btn btn-lg btn-primary choice" onClick={handleClick} role="button">Vendre</a>

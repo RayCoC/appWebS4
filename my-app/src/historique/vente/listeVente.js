@@ -45,6 +45,7 @@ function ListeVente() {
                                         <hr />
                                         <p>{product.description}</p>
                                         <button type="button" className="btn btn-primary">{product.prix}$</button>
+                                        <button type="button" className="btn btn-danger" onClick={() => deleteProduct(product.idObjet)}>Retirer</button>
                                         {product.status == null ? (
                                                 <div></div>) :
                                             (<button type="button" className="btn btn-secondary">Vendu</button>)}

@@ -18,8 +18,9 @@ const Header = () => {
                         <>
                             <Nav.Link className="link" href="/historique">Historique</Nav.Link>
                             <Nav.Link className="link" href="/panier">Panier</Nav.Link>
+                            <Nav.Link className="link" href="/deconnexion">Deconnexion</Nav.Link>
                         </>)
-                        :<Nav.Link className="link" href="/Account">Connexion/inscription</Nav.Link>}
+                        :<Nav.Link className="link" href="/connexion">Connexion/inscription</Nav.Link>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

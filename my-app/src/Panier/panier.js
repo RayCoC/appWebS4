@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
 import './panier.css';
+
+
 const Panier = () => {
-    const [cart, setCart] = useState(localStorage.getItem("products"));
+    const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
 
     function getCartItems() {
         const data = localStorage.getItem("products");
-        if(!data) return [];
-        return JSON.parse(data);
+        if(!data) setCart([]);
+        setCart(JSON.parse(data));
     }
 
     function price() {
-        setCartTotal(getCartItems().reduce((sum, item) => sum + item.prix, 0));
+        setCartTotal(cart.reduce((sum, item) => sum + item.prix, 0));
     }
-
+    function deleteItem(id) {
+        let items = JSON.parse(localStorage.getItem("products"));
+        items = items.filter((item) => item.idObjet !== id);
+        localStorage.setItem("products", JSON.stringify(items));
+    }
     useEffect(() => {
         getCartItems();
         price();
@@ -24,8 +30,8 @@ const Panier = () => {
                 <div className="row">
                     <div className="col-lg-10 offset-lg-1">
                         <div className="cart_container">
-                            <div className="cart_title">Shopping Cart<small> ( {getCartItems().length} item in your cart) </small></div>
-                            {cart ? getCartItems().map(product => {
+                            <div className="cart_title">Shopping Cart<small> ( {cart.length} item in your cart) </small></div>
+                            {cart ? cart.map(product => {
                                 return <div className="cart_items">
                                     <ul className="cart_list">
                                         <li className="cart_item clearfix">
@@ -35,6 +41,7 @@ const Panier = () => {
                                                 <div className="cart_item_name cart_info_col">
                                                     <div className="cart_item_title">{product.typeObjet}</div>
                                                     <div className="cart_item_text">{product.nomObjet}</div>
+                                                    <button className="btn btn-danger" onClick={() => deleteItem(product.idObjet)}>Retirer</button>
                                                 </div>
                                                 <div className="cart_item_price cart_info_col">
                                                     <div className="cart_item_title">Price</div>

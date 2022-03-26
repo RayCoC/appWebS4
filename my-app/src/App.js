@@ -10,6 +10,7 @@ import PrivateRoute from './privateRoute';
 import ListOfItems from './Acheter/listOfItems';
 import Historique from './historique/historique';
 import Panier from './Panier/panier';
+import Estimation from './EstimerPage/esimation';
 function App() {
 
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route exact path='/listOfItems' element={<PrivateRoute component={ListOfItems}/>}/>
             <Route exact path='/historique' element={<PrivateRoute component={Historique}/>}/>
             <Route exact path='/panier' element={<PrivateRoute component={Panier}/>}/>
+            <Route exact path={"/Estimer"} element = {<Estimation />} />
         </Routes>
         <Footer />
     </div>
