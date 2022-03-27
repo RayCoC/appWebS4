@@ -10,7 +10,7 @@ function ListOfItems() {
 
     const searchHandler = async () => {
         var search = searchItem == "" ? "noSearch" : searchItem
-        await axios.get("http://localhost:8081/api/search/"+search+"/"+filter).then(response=> {
+        await axios.get("http://localhost:8081/api/search/"+search+"/"+filter+"/"+window.sessionStorage.getItem("userID")).then(response=> {
             if (response.data.all) {
                 setProducts(response.data.all);
             }

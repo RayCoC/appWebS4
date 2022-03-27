@@ -11,7 +11,6 @@ function ListeVente() {
 
     const deleteProduct = (id) => {
         axios.post("http://localhost:8081/api/deleteItem/"+id).then(res => {
-            console.log('ok');
         })
     }
     const fetchProducts = async () => {

@@ -24,7 +24,8 @@ function ObjetPage() {
                 <p className="lead">Vous pouvez gérer ou acheter des collections d'objets simplemeent sur notre site iRayBuy en vendant vos objets ou en achetant des objets d'autres utilisateurs !</p>
                 <br/>
                 <div className = "choice">
-                    <a className="btn btn-lg btn-primary choice" onClick={handleClick} role="button">Vendre</a>
+                    <a className="btn btn-lg btn-primary choice" onClick={handleClick} role="button">Vendre un Objet</a>
+                    <Link to={'/creerCollection'} className="btn btn-lg btn-primary choice" role="button">Créer une collection</Link>
                     <Link to={'/listOfItems'} className="btn btn-lg btn-primary choice" role="button">Acheter</Link>
                 </div>
             </div>

@@ -3,6 +3,12 @@ import "./header.css";
 import {Nav, Navbar} from "react-bootstrap";
 
 const Header = () => {
+
+    function logout() {
+        localStorage.clear();
+        window.sessionStorage.clear();
+        window.location.href = '/';
+    }
     return (
         <Navbar bg="dark" sticky="top" expand="lg" collapseOnSelect>
             <Navbar.Brand>
@@ -18,7 +24,7 @@ const Header = () => {
                         <>
                             <Nav.Link className="link" href="/historique">Historique</Nav.Link>
                             <Nav.Link className="link" href="/panier">Panier</Nav.Link>
-                            <Nav.Link className="link" href="/deconnexion">Deconnexion</Nav.Link>
+                            <Nav.Link className="link" onClick={() => logout()}>Deconnexion</Nav.Link>
                         </>)
                         :<Nav.Link className="link" href="/connexion">Connexion/inscription</Nav.Link>}
                 </Nav>

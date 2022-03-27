@@ -49,9 +49,14 @@ var conn = require("../config/database");
             if (result.length > 0) {
                 return res.json({"message": "Vous avez déjà crée une collection avec ce nom"});
             } else {
-                conn.query(`insert into collection (titreCollection)
-                            values ("${req.session.userID}";`, (err, resultat) => {
-                    return res.status(200).json({"message": "Collection crée"});
+                conn.query(`insert into collection (titreCollection, idUtilisateur)
+                            values ("${collectionName}","${req.session.userID}");`, (err, resultat) => {
+                            if (err) {
+                                throw err;
+                            }
+                            else {
+                                return res.json({"message" : "Collection crée"});
+                            }
                 });
             }
         });

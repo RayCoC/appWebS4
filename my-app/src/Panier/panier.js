@@ -13,7 +13,7 @@ const Panier = () => {
     }
 
     function price() {
-        setCartTotal(cart.reduce((sum, item) => sum + item.prix, 0));
+        setCartTotal(cart?.reduce((sum, item) => sum + item.prix, 0));
     }
     function deleteItem(id) {
         let items = JSON.parse(localStorage.getItem("products"));
@@ -30,7 +30,7 @@ const Panier = () => {
                 <div className="row">
                     <div className="col-lg-10 offset-lg-1">
                         <div className="cart_container">
-                            <div className="cart_title">Shopping Cart<small> ( {cart.length} item in your cart) </small></div>
+                            <div className="cart_title">Shopping Cart<small> ( {cart?.length ? cart.length : 0} item in your cart) </small></div>
                             {cart ? cart.map(product => {
                                 return <div className="cart_items">
                                     <ul className="cart_list">

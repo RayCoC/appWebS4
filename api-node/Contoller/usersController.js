@@ -49,6 +49,7 @@ var conn = require("../config/database");
                 var id = resultat[0].idUtilisateur
                 var token = jwt.sign({idUtilisateur : id}, process.env.ACCESS_TOKEN, {expiresIn: "10h"});
                 req.session.userID = id;
+                console.log(req.session.userID);
                 req.session.token = token;
                 return res.status(200).json({"message" : "connecté", token, user: resultat[0]}); // res.redirect("/"); une fois que j'aurai le front end
             }

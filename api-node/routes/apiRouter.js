@@ -26,18 +26,18 @@ apiRouter.post('/inscription',userController.inscription);
 apiRouter.post("/connexion",userController.login);
 apiRouter.post('/logout', userController.logout);
 apiRouter.get('/userInformations', function (req,res,next) {
-   console.log(req.session);
+   console.log(req.session.userID);
 });
 apiRouter.post("/addItem/:id", upload.single('file'),token,itemController.addItem);
 apiRouter.get("/items/:id", token, itemController.itemsOfAnUser);
 apiRouter.post("/createCollection", itemController.createCollection);
 apiRouter.post("/addItemToCollection/:itemID", itemController.addItemToCollection);
 apiRouter.post("/deleteItem/:itemID", itemController.deleteItem);
-apiRouter.get("/search/:title/:filter", function (req,res, next) {
+apiRouter.get("/search/:title/:filter/:id", function (req,res,next) {
    var title = req.params.title;
    var filter = req.params.filter;
    if (title == "" || title == null || filter == "" || filter == null || title == "noSearch") {
-      conn.query('SELECT * from objet', (err, result) => {
+      conn.query('SELECT * from objet where idUtilisateur <> ?',[req.params.id], (err, result) => {
          if (err) {
             throw err;
          }
@@ -45,7 +45,7 @@ apiRouter.get("/search/:title/:filter", function (req,res, next) {
       });
    }
    else if (filter == "nomObjet") {
-      conn.query("SELECT * from objet where nomObjet like ?", '%'+title+'%', (err, result) => {
+      conn.query("SELECT * from objet where nomObjet like ? and idUtilisateur <> ?", ['%'+title+'%', req.params.id], (err, result) => {
          if (err) {
             throw err;
          }
@@ -56,7 +56,7 @@ apiRouter.get("/search/:title/:filter", function (req,res, next) {
       });
    }
    else if (filter=="typeObjet") {
-      conn.query("SELECT * from objet where typeObjet like ?", '%'+title+'%', (err, result) => {
+      conn.query("SELECT * from objet where typeObjet like ? and idUtilisateur <> ?", ['%'+title+'%', req.params.id], (err, result) => {
          if (err) {
             throw err;
          }
