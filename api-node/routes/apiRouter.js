@@ -30,8 +30,8 @@ apiRouter.get('/userInformations', function (req,res,next) {
 });
 apiRouter.post("/addItem/:id", upload.single('file'),token,itemController.addItem);
 apiRouter.get("/items/:id", token, itemController.itemsOfAnUser);
-apiRouter.post("/createCollection", itemController.createCollection);
-apiRouter.post("/addItemToCollection/:itemID", itemController.addItemToCollection);
+apiRouter.post("/createCollection/:userID", itemController.createCollection);
+apiRouter.post("/addItemToCollection/:itemID/:collectionID", itemController.addItemToCollection);
 apiRouter.post("/deleteItem/:itemID", itemController.deleteItem);
 apiRouter.get("/search/:title/:filter/:id", function (req,res,next) {
    var title = req.params.title;
@@ -66,5 +66,22 @@ apiRouter.get("/search/:title/:filter/:id", function (req,res,next) {
          return res.json({"message" : "not found"});
       });
    }
+   else if (filter=="collection" && title!=="noSearchCollection") {
+      conn.query("SELECT * from collection c inner join objet o on (c.idCollection = o.idCollection) where titreCollection like ? and c.idUtilisateur <> ?",['%'+title+'%',req.params.id], (err, result) => {
+         if (err) {
+            throw err;
+         }
+         return res.json({"all" : result});
+      });
+   }
+   else if (filter=="collection" && title=="noSearchCollection") {
+      conn.query("SELECT * from collection c inner join objet o on (c.idCollection = o.idCollection) where c.idUtilisateur <> ?",[req.params.id], (err, result) => {
+         if (err) {
+            throw err;
+         }
+         return res.json({"all" : result});
+      });
+   }
 });
+
 module.exports = apiRouter;

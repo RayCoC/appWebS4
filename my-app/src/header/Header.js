@@ -17,8 +17,7 @@ const Header = () => {
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav className='m-auto'>
-                    <Nav.Link className="link" href="/Accueil">Accueil</Nav.Link>
-                    <Nav.Link className="link" href="/Objet">Objets</Nav.Link>
+                    <Nav.Link className="link" href="/">Accueil</Nav.Link>
                     <Nav.Link className="link" href="/Estimer">Estimer</Nav.Link>
                     {window.sessionStorage.hasOwnProperty("userID") ? (
                         <>

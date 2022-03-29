@@ -18,7 +18,6 @@ function ListeVente() {
             setProducts(res.data.info);
         });
     };
-
     useEffect(() => {
         fetchProducts();
     }, [products])

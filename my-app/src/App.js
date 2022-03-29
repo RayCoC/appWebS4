@@ -18,9 +18,9 @@ function App() {
     <div className="App">
         <Header />
         <Routes>
+            <Route exact path="/" element={<ObjetPage />} />
             <Route exact path="/connexion" element = {<Connexion />} />
             <Route exact path="/inscription" element = {<Inscription />} />
-            <Route exact path="/Objet" element = {<ObjetPage />} />
             <Route exact path={"/vendre"} element = {<Vendre />} />
             <Route exact path='/historique/vente' element={<PrivateRoute component={ListeVente}/>}/>
             <Route exact path='/listOfItems' element={<PrivateRoute component={ListOfItems}/>}/>

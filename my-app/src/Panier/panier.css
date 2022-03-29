@@ -3,8 +3,8 @@ ul {
     list-style: none;
     margin-bottom: 0px
 }
-img {
-    height: 100px !important;
+.imgSize {
+    height: 150px !important;
 }
 .button {
     display: inline-block;
