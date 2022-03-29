@@ -11,7 +11,6 @@ function ListeVente() {
 
     const deleteProduct = (id) => {
         axios.post("http://localhost:8081/api/deleteItem/"+id).then(res => {
-            console.log('ok');
         })
     }
     const fetchProducts = async () => {
@@ -19,7 +18,6 @@ function ListeVente() {
             setProducts(res.data.info);
         });
     };
-
     useEffect(() => {
         fetchProducts();
     }, [products])
@@ -45,6 +43,7 @@ function ListeVente() {
                                         <hr />
                                         <p>{product.description}</p>
                                         <button type="button" className="btn btn-primary">{product.prix}$</button>
+                                        <button type="button" className="btn btn-danger" onClick={() => deleteProduct(product.idObjet)}>Retirer</button>
                                         {product.status == null ? (
                                                 <div></div>) :
                                             (<button type="button" className="btn btn-secondary">Vendu</button>)}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './connexion.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Connexion () {
@@ -12,7 +12,6 @@ function Connexion () {
     const [token, setToken] = useState("");
     const [compteur, setCompteur] = useState(0);
     const [logged, setLogged] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -29,7 +28,7 @@ function Connexion () {
             else {
                 window.sessionStorage.setItem("token", "Bearer " + res.data.token);
                 window.sessionStorage.setItem("userID", res.data.user.idUtilisateur);
-                navigate("/Accueil");
+                window.location.href = '/';
             }
         })
     }

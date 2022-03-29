@@ -41,7 +41,7 @@ var conn = require("../config/database");
         });
     }
     exports.createCollection = (req,res, next) => {
-        var collectionName = req.body.Name;
+        var collectionName = req.body.nom;
         if (collectionName == null) {
             return res.json({"message": "La collection doit avoir un nom !"});
         }
@@ -49,9 +49,14 @@ var conn = require("../config/database");
             if (result.length > 0) {
                 return res.json({"message": "Vous avez déjà crée une collection avec ce nom"});
             } else {
-                conn.query(`insert into collection (titreCollection)
-                            values ("${req.session.userID}";`, (err, resultat) => {
-                    return res.status(200).json({"message": "Collection crée"});
+                conn.query(`insert into collection (titreCollection, idUtilisateur)
+                            values ("${collectionName}","${req.params.userID}");`, (err, resultat) => {
+                            if (err) {
+                                throw err;
+                            }
+                            else {
+                                return res.json({"message" : "Collection crée", "collectionID" : resultat.insertId});
+                            }
                 });
             }
         });
@@ -61,7 +66,13 @@ var conn = require("../config/database");
             throw new error("Error");
         }
         else {
-            conn.query(`insert into collection (titreCollection) values ("${req.session.userID}";`, (err, resultat) => {
+            conn.query("SELECT * from objet where idObjet = ?", req.params.itemID, (err, res) => {
+                if (res[0].collectionID > 0) {
+                    return res.json({"message" : "L'objet est déjà dans une collection"});
+                }
+            })
+            console.log(req.params.collectionID);
+            conn.query("update objet set idCollection = ? where idObjet = ?", [req.params.collectionID, req.params.itemID],(err, resultat) => {
                 return res.status(200).json({"message" : "Objet ajouté à la collection"});
             });
         }

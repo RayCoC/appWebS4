@@ -11,3 +11,9 @@ p {
     height: 50px;
     margin: 10px;
 }
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

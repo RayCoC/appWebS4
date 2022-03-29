@@ -15,6 +15,7 @@ serv.use(
         secret: process.env.SESSION_SECRET,
         resave : false,
         saveUninitialized : false,
+        cookie: { secure: !true }
     }),
 );
 serv.use(function(req,res,next){

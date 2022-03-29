@@ -4,7 +4,9 @@
     border: 5px solid #ecf0f1;
     margin-bottom: 7px;
 }
-
+button {
+    margin: 10px !important;
+}
 #store-list h4.title-store a:hover {
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
